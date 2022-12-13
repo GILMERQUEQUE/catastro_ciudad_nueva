@@ -1,0 +1,86 @@
+var map = L.map('map', {
+    center: [-17.645875, -71.345271],
+    zoom: 18,
+    minZoom: 10,
+    maxZoom: 20,
+    maxBounds: [[-18.0146,-71.6553], [-17.0981,-70.7297]]
+});
+
+var basemapOSM = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <ahref="http://osm.org/copyright"> OpenStreetMap</a> contributor'
+});
+basemapOSM.addTo(map);
+
+var colegios = L.tileLayer.wms("http://localhost:8080/geoserver/proyectocolegiosilo/wms?", {
+layers: "proyectocolegiosilo:colegios", //gisweb:centroseducativos moquegua
+format: 'image/png',
+transparent: true,
+version: '1.1.1',
+attribution: "SENCICO"
+});
+colegios.addTo(map);
+
+var departamentos = L.tileLayer.wms("http://localhost:8080/geoserver/proyectocolegiosilo/wms?", {
+layers: "proyectocolegiosilo:departamentos", //gisweb:centroseducativos moquegua
+format: 'image/png',
+transparent: true,
+version: '1.1.1',
+attribution: "SENCICO"
+});
+departamentos.addTo(map);
+
+var distritos = L.tileLayer.wms("http://localhost:8080/geoserver/proyectocolegiosilo/wms?", {
+layers: "proyectocolegiosilo:distritos", //gisweb:centroseducativos moquegua
+format: 'image/png',
+transparent: true,
+version: '1.1.1',
+attribution: "SENCICO"
+});
+distritos.addTo(map);
+
+var provincias = L.tileLayer.wms("http://localhost:8080/geoserver/proyectocolegiosilo/wms?", {
+layers: "proyectocolegiosilo:provincias", //gisweb:centroseducativos moquegua
+format: 'image/png',
+transparent: true,
+version: '1.1.1',
+attribution: "SENCICO"
+});
+provincias.addTo(map);
+
+var baseMaps = {
+"OSM": basemapOSM
+};
+var overlayMaps = {
+"Centros educativos": colegios,
+"Distritos Moquegua": distritos,
+"Provincias Moquegua": provincias,
+"Departamentos Moquegua": departamentos
+};
+L.control.layers(baseMaps, overlayMaps,{
+position: 'topright', // 'topleft', 'bottomleft', 'bottomright'
+collapsed: false // true
+}).addTo(map);
+
+var departamento = L.tileLayer.wms("http://localhost:8080/geoserver/proyectocolegiosilo/wms?", {
+layers: "proyectocolegiosilo:departamentos", //gisweb:departamento de moquegua
+format: 'image/png',
+transparent: true,
+version: '1.1.1',
+attribution: "SENCICO"
+}); departamento.addTo(map);
+
+var provincias = L.tileLayer.wms("http://localhost:8080/geoserver/proyectocolegiosilo/wms?", {
+layers: "proyectocolegiosilo:provincias", //gisweb:provincias de moquegua
+format: 'image/png',
+transparent: true,
+version: '1.1.1',
+attribution: "SENCICO"
+}); provincias.addTo(map);
+
+var distritos = L.tileLayer.wms("http://localhost:8080/geoserver/proyectocolegiosilo/wms?", {
+layers: "proyectocolegiosilo:distritos", //gisweb:distritos de moquegua
+format: 'image/png',
+transparent: true,
+version: '1.1.1',
+attribution: "SENCICO"
+}); distritos.addTo(map);
